@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>ASHIN THANKACHAN</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
@@ -1005,8 +1006,10 @@
 
             <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
               <form
-                action="forms/contact.php"
-                method="post"
+              id="submit-form"
+                action=""
+                onsubmit="return validation()"
+              
                 role="form"
                 class="php-email-form"
               >
@@ -1014,12 +1017,14 @@
                   <div class="form-group col-md-6">
                     <label for="name">Your Name</label>
                     <input
+                      
                       type="text"
                       name="name"
                       class="form-control"
                       id="name"
-                      required
+                    
                     />
+                    <span  class="error-msg" id="error1"></span>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="name">Your Email</label>
@@ -1028,8 +1033,9 @@
                       class="form-control"
                       name="email"
                       id="email"
-                      required
+                      
                     />
+                    <span class="error-msg" id="error2"></span>
                   </div>
                 </div>
                 <div class="form-group">
@@ -1039,8 +1045,9 @@
                     class="form-control"
                     name="subject"
                     id="subject"
-                    required
+                    
                   />
+                  <span class="error-msg" id="error3"></span>
                 </div>
                 <div class="form-group">
                   <label for="name">Message</label>
@@ -1048,8 +1055,10 @@
                     class="form-control"
                     name="message"
                     rows="10"
-                    required
+                    id="text-area"
+                    
                   ></textarea>
+                  <span class="error-msg" id="error4"></span>
                 </div>
                 <div class="my-3">
                   <div class="loading">Loading</div>
@@ -1093,12 +1102,83 @@
       ><i class="bi bi-arrow-up-short"></i
     ></a>
 
+    <!-- form validation -->
+    <script>
+      function validation(){
+
+        var fname1=document.getElementById("name");
+        var email1=document.getElementById("email");
+        var subject1=document.getElementById("subject");
+        var message1=document.getElementById("text-area");
+
+        if(fname1.value==""){
+          document.getElementById("error1").innerHTML="*this field is required";
+
+        }
+        if(email1.value==""){
+          document.getElementById("error2").innerHTML="*this field is required";
+
+        }
+        if(subject1.value==""){
+          document.getElementById("error3").innerHTML="*this field is required";
+
+        }
+        if(message1==""){
+          document.getElementById("error4").innerHTML="*please fill this box";
+
+        }
+
+        if(fname1.value==""||email1.value==""||subject1.value==""||message1.value==""){
+          return false;
+
+        }else{
+          return true;
+    
+            }
+
+      }
+    </script>
+    <!-- form validation -->
+
+    <!-- form-submission -->
+   <script>
+
+
+    $("#submit-form").submit((e)=>{
+        e.preventDefault()
+
+        let fname1=$("#name").val();
+        let email1=$("#email").val();
+        let subject1=$("#subject").val();
+        let message1=$("#message").val();
+        if(fname1==""||email1==""||subject1==""||message1==""){
+
+          alert("Fill all content in the Form");
+
+        }
+
+        else{$.ajax({
+            url:"https://script.google.com/macros/s/AKfycbzXcjVOWaS85gi7qfAJpsWG5EgR_kn0qKOv22TXo-3RBIb0umvXtrm5HQ8lbk0D983l/exec",
+            data:$("#submit-form").serialize(),
+            method:"post",
+            success:function (response){
+                alert("Form submitted successfully")
+                window.location.reload()
+                //window.location.href="https://google.com"
+            },
+            error:function (err){
+                alert("Something Error")
+
+            }
+        })}
+    })
+</script>
     <!-- Vendor JS Files -->
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    
     <script src="assets/vendor/purecounter/purecounter.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/typed.js/typed.min.js"></script>
